@@ -40,37 +40,47 @@ export default function App() {
     await salvarTarefas(novasTarefas);
   };
 
+  const limparTudo = async () => {
+    await AsyncStorage.removeItem('tarefas');
+    setTarefas([]);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <Text style={styles.titulo}>Rotina de um Salsicha 🐶</Text>
       <Image
-      source={{ uri: 'https://i.pinimg.com/originals/9a/a8/05/9aa8051f438e26820e754322a687c082.jpg' }}
-      style={styles.imagem}
+        source={{ uri: 'https://i.pinimg.com/originals/9a/a8/05/9aa8051f438e26820e754322a687c082.jpg' }}
+        style={styles.imagem}
       />
       <Text style={styles.texto}>Adicione as tarefas do seu doguinho abaixo!</Text>
       <TextInput
-      style={styles.input}
-      placeholder="Digite uma tarefa aqui!"
-      value={tarefa}
-      onChangeText={setTarefa}
+        style={styles.input}
+        placeholder="Digite uma tarefa aqui!"
+        value={tarefa}
+        onChangeText={setTarefa}
       />
       <TouchableOpacity style={styles.botaoAdicionar} onPress={adicionarTarefa}>
-      <Text style={[styles.textoBotaoAdicionar, { fontSize: 17 }]}>Adicionar 🐾</Text>
+        <Text style={[styles.textoBotaoAdicionar, { fontSize: 17 }]}>Adicionar 🐾</Text>
       </TouchableOpacity>
-      <FlatList
-      data={tarefas}
-      keyExtractor={(_, index) => index.toString()}
-      style={{ marginTop: 20 }}
-      renderItem={({ item, index }) => (
-        <View style={styles.tarefaItem}>
-        <Text style={styles.tarefaTexto}>{item}</Text>
-        <TouchableOpacity style={styles.botaoRemover} onPress={() => removerTarefa(index)}>
-          <Text style={{ color: '#fff', fontWeight: 'bold' }}>🗑️</Text>
+      {tarefas.length > 0 && (
+        <TouchableOpacity style={styles.botaoLimpar} onPress={limparTudo}>
+          <Text style={styles.textoBotaoLimpar}>Limpar Tudo</Text>
         </TouchableOpacity>
-        </View>
       )}
-      ListEmptyComponent={<Text style={{ textAlign: 'center', color: '#aaa' }}>Nenhuma tarefa adicionada ainda para o salsicha!</Text>}
+      <FlatList
+        data={tarefas}
+        keyExtractor={(_, index) => index.toString()}
+        style={{ marginTop: 20 }}
+        renderItem={({ item, index }) => (
+          <View style={styles.tarefaItem}>
+            <Text style={styles.tarefaTexto}>{item}</Text>
+            <TouchableOpacity style={styles.botaoRemover} onPress={() => removerTarefa(index)}>
+              <Text style={{ color: '#fff', fontWeight: 'bold' }}>🗑️</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        ListEmptyComponent={<Text style={{ textAlign: 'center', color: '#aaa' }}>Nenhuma tarefa adicionada ainda para o salsicha!</Text>}
       />
     </View>
   );
@@ -105,6 +115,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 'auto',
     marginTop: 10,
+  },
+  botaoLimpar: {
+    backgroundColor: '#ff796aff',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+    width: '80%',
+    alignSelf: 'center',
+  },
+  textoBotaoLimpar: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   imagem: {
     width: 200,
