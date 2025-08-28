@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TextInput, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'react-native';
 
@@ -44,37 +44,43 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <Text style={styles.titulo}>Rotina de um Salsicha 🐶</Text>
+      <Image
+      source={{ uri: 'https://i.pinimg.com/originals/9a/a8/05/9aa8051f438e26820e754322a687c082.jpg' }}
+      style={styles.imagem}
+      />
       <Text style={styles.texto}>Adicione as tarefas do seu doguinho abaixo!</Text>
       <TextInput
-        style={styles.input}
-        placeholder="Digite uma tarefa aqui!"
-        value={tarefa}
-        onChangeText={setTarefa}
+      style={styles.input}
+      placeholder="Digite uma tarefa aqui!"
+      value={tarefa}
+      onChangeText={setTarefa}
       />
-      <Button style={styles.botaoAdicionar} title="Adicionar 🐾" onPress={adicionarTarefa} />
+      <TouchableOpacity style={styles.botaoAdicionar} onPress={adicionarTarefa}>
+      <Text style={styles.textoBotaoAdicionar}>Adicionar 🐾</Text>
+      </TouchableOpacity>
       <FlatList
-        data={tarefas}
-        keyExtractor={(_, index) => index.toString()}
-        style={{ marginTop: 20 }}
-        renderItem={({ item, index }) => (
-          <View style={styles.tarefaItem}>
-            <Text style={styles.tarefaTexto}>{item}</Text>
-            <TouchableOpacity style={styles.botaoRemover} onPress={() => removerTarefa(index)}>
-              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Remover</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        ListEmptyComponent={<Text style={{ textAlign: 'center', color: '#aaa' }}>Nenhuma tarefa adicionada ainda para o salsicha!</Text>}
+      data={tarefas}
+      keyExtractor={(_, index) => index.toString()}
+      style={{ marginTop: 20 }}
+      renderItem={({ item, index }) => (
+        <View style={styles.tarefaItem}>
+        <Text style={styles.tarefaTexto}>{item}</Text>
+        <TouchableOpacity style={styles.botaoRemover} onPress={() => removerTarefa(index)}>
+          <Text style={{ color: '#fff', fontWeight: 'bold' }}>🗑️</Text>
+        </TouchableOpacity>
+        </View>
+      )}
+      ListEmptyComponent={<Text style={{ textAlign: 'center', color: '#aaa' }}>Nenhuma tarefa adicionada ainda para o salsicha!</Text>}
       />
     </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#c5c5c5ff',
+    backgroundColor: '#E0F7E9',
   },
   titulo: {
     fontSize: 24,
@@ -87,27 +93,34 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
     textAlign: 'center',
-    color: '#646464ff',
-  },
-  input: {
-    borderWidth: 2,
-    borderColor: '#ffffffff',
-    padding: 10,
-    marginBottom: 20,
-    borderRadius: 5,
+    color: '#7D7D7D',
   },
   botaoAdicionar: {
-    backgroundColor: '#38b6ffff',
+    backgroundColor: '#c3e6f3ff',
     paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     borderRadius: 5,
+    alignItems: 'center',
     marginTop: 10,
+  },
+  imagem: {
+    width: 200,
+    height: 200,
+    borderRadius: 40,
+    marginBottom: 20,
+    margin: 'auto',
+  },
+  input: {
+    padding: 15,
+    backgroundColor: '#F9FAFB',
+    marginBottom: 20,
+    borderRadius: 5,
   },
   tarefaItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#38b6ffff',
+    backgroundColor: '#F9FAFB',
     padding: 12,
     borderRadius: 5,
     marginBottom: 10,
@@ -115,10 +128,10 @@ const styles = StyleSheet.create({
   tarefaTexto: {
     fontSize: 16,
     flex: 1,
-    color: '#fff',
+    color: '#5A5A5A',
   },
   botaoRemover: {
-    backgroundColor: '#e74c3c',
+    backgroundColor: '#E5E5E5',
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 5,
