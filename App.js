@@ -56,7 +56,7 @@ export default function App() {
       onChangeText={setTarefa}
       />
       <TouchableOpacity style={styles.botaoAdicionar} onPress={adicionarTarefa}>
-      <Text style={styles.textoBotaoAdicionar}>Adicionar 🐾</Text>
+      <Text style={[styles.textoBotaoAdicionar, { fontSize: 17 }]}>Adicionar 🐾</Text>
       </TouchableOpacity>
       <FlatList
       data={tarefas}
@@ -73,7 +73,7 @@ export default function App() {
       ListEmptyComponent={<Text style={{ textAlign: 'center', color: '#aaa' }}>Nenhuma tarefa adicionada ainda para o salsicha!</Text>}
       />
     </View>
-    );
+  );
 }
 
 const styles = StyleSheet.create({
@@ -100,7 +100,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 5,
+    width: '80%',
+    justifyContent: 'center',
     alignItems: 'center',
+    margin: 'auto',
     marginTop: 10,
   },
   imagem: {
@@ -114,6 +117,7 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: '#F9FAFB',
     marginBottom: 20,
+    fontSize: 16,
     borderRadius: 5,
   },
   tarefaItem: {
